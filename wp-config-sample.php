@@ -59,7 +59,7 @@ define('NONCE_SALT',       'put your unique phrase here');
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp_';
+$table_prefix  = 'welaikawp_';
 
 /**
  * WordPress Localized Language, defaults to English.
@@ -69,7 +69,7 @@ $table_prefix  = 'wp_';
  * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
  * language support.
  */
-define('WPLANG', '');
+define('WPLANG', 'it_IT');
 
 /**
  * For developers: WordPress debugging mode.
@@ -78,13 +78,40 @@ define('WPLANG', '');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', false);
+if ( isset($_GET['debug'])){
+  define('WP_DEBUG', true);
+} else {
+  define('WP_DEBUG', false);
+}
 
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
+
+/** weLaika Hacks */
+
+/** 1. Disallow direct file edition. */
+define('DISALLOW_FILE_EDIT', TRUE);
+
+/** 2. Automatically empty trash. Solution to empty spam comments. */
+define('EMPTY_TRASH_DAYS', 1);
+
+/** 3. Automatic database repair. */
+define('WP_ALLOW_REPAIR', true);
+
+/** 4. Define max number of revisions. */
+define('WP_POST_REVISIONS', 5 );
+
+/** 5. Change wp-content dir. */
+define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/custom' );
+
+/** 6. Debug mode via $_GET. */
+/** In line 81.*/
+
+/** 7. Change uploads dir. */
+define( 'UPLOADS', '/custom/uploads' );
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
