@@ -105,13 +105,13 @@ define('WP_ALLOW_REPAIR', true);
 define('WP_POST_REVISIONS', 5 );
 
 /** 5. Change wp-content dir. */
-define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/custom' );
+define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-laika' );
 
 /** 6. Debug mode via $_GET. */
 /** In line 81.*/
 
 /** 7. Change uploads dir. */
-define( 'UPLOADS', '/custom/uploads' );
+define( 'UPLOADS', '/wp-laika/uploads' );
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
