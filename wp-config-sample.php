@@ -113,5 +113,8 @@ define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-laika' );
 /** 7. Change uploads dir. */
 define( 'UPLOADS', '/wp-laika/uploads' );
 
+/** 8. Disable wp-cron by default */
+define('DISABLE_WP_CRON', true);
+
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
