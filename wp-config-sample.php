@@ -116,5 +116,11 @@ define( 'UPLOADS', '/wp-laika/uploads' );
 /** 8. Disable wp-cron by default */
 define('DISABLE_WP_CRON', true);
 
+/** 9. Remove theme editor */
+define( 'DISALLOW_FILE_EDIT', true );
+
+/** 10. Make WP use 'direct' dowload method for install/update **/
+define('FS_METHOD', 'direct');
+
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
