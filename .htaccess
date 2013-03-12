@@ -32,6 +32,10 @@ Options All -Indexes
 Order allow,deny
 Deny from all
 </files>
+<files error.log>
+Order allow,deny
+Deny from all
+</files>
 <files readme.html>
 Order allow,deny
 Deny from all
