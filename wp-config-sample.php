@@ -78,10 +78,19 @@ define('WPLANG', 'it_IT');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-if ( isset($_GET['debug'])){
+if ( isset($_GET['debug']) && ($_GET['debug'] == 'debug') ){
+  @ini_set('log_errors','On');
+  @ini_set('error_log', dirname(__FILE__) .'/error.log');
+  @ini_set('display_errors','On');
+  @ini_set('error_reporting', E_ALL );
   define('WP_DEBUG', true);
+  define('WP_DEBUG_DISPLAY', true);
 } else {
+  @ini_set('log_errors','Off');
+  @ini_set('display_errors','Off');
+  @ini_set('error_reporting', 0 );
   define('WP_DEBUG', false);
+  define('WP_DEBUG_DISPLAY', false);
 }
 
 /* That's all, stop editing! Happy blogging. */
