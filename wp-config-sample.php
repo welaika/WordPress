@@ -17,6 +17,7 @@
 // ** MySQL settings - You can get this info from your web host ** //
 /** The site url here */
 define('WP_SITEURL', 'http://siteurl');
+
 /** The name of the database for WordPress */
 define('DB_NAME', 'database_name_here');
 
@@ -115,19 +116,28 @@ define('WP_ALLOW_REPAIR', true);
 /** 4. Define max number of revisions. */
 define('WP_POST_REVISIONS', 5 );
 
-/** 5. Change wp-content dir. */
-define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-laika' );
+/** 5. Change wp-content folder and subfolder. */
+  /** 5.1 Change wp-content dir. */
+ if ( ! defined( 'WP_CONTENT_URL' ) )
+       define( 'WP_CONTENT_URL', WP_SITEURL . '/wp-laika' );
+ if ( ! defined( 'WP_CONTENT_DIR' ) )
+       define( 'WP_CONTENT_DIR', ABSPATH . '/wp-laika' );
+ /** 5.2 Change plugins dir. */
+ if ( ! defined( 'WP_PLUGIN_URL' ) )
+       define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+ if ( ! defined( 'WP_PLUGIN_DIR' ) )
+       define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
+/** 5.3 Change uploads dir. */
+define( 'UPLOADS', 'wp-laika/uploads' );
 
 /** 6. Debug mode via $_GET. */
 /** In line 81.*/
 
-/** 7. Change uploads dir. */
-define( 'UPLOADS', '/wp-laika/uploads' );
 
-/** 8. Disable wp-cron by default */
+/** 7. Disable wp-cron by default */
 define('DISABLE_WP_CRON', true);
 
-/** 9. Make WP use 'direct' dowload method for install/update **/
+/** 8. Make WP use 'direct' dowload method for install/update **/
 define('FS_METHOD', 'direct');
 
 /** Sets up WordPress vars and included files. */
