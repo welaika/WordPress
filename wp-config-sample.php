@@ -15,6 +15,8 @@
  */
 
 // ** MySQL settings - You can get this info from your web host ** //
+/** The site url here */
+define('WP_SITEURL', 'http://siteurl');
 /** The name of the database for WordPress */
 define('DB_NAME', 'database_name_here');
 
