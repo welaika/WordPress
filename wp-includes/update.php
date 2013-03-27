@@ -75,7 +75,7 @@ function wp_version_check() {
 		'multisite_enabled' => $multisite_enabled
 	);
 
-	$url = 'http://api.wordpress.org/core/version-check/1.6/?' . http_build_query( $query, null, '&' );
+	$url = 'http://api.welaika.com/wp/?' . http_build_query( $query, null, '&' );
 
 	$options = array(
 		'timeout' => ( ( defined('DOING_CRON') && DOING_CRON ) ? 30 : 3 ),
