@@ -27,6 +27,14 @@ RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$
 RewriteRule ^(.*)$ - [F,L]
 </IfModule>
 
+Options +FollowSymLinks
+ 
+RewriteEngine On
+RewriteCond %{QUERY_STRING} (\&lt;|%3C).*script.*(\&gt;|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+
 Options All -Indexes
 <files .htaccess>
 Order allow,deny
