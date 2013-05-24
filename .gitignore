@@ -1,2 +1,5 @@
 error.log
 wp-content
+wp-laika/themes/*/tmp/*
+wp-laika/*.sql
+wp-laika/uploads 
