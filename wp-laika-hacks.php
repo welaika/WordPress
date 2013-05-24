@@ -48,11 +48,26 @@ function block(){
   }
 }
 
+/**
+ * Remove scripts version (js & css)
+ * @param string $src
+ * @return
+ */
+function remove_ver_scripts($src){
+  if ( strpos( $src, 'ver=' ) )
+    $src = remove_query_arg( 'ver', $src );
+  return $src;
+}
+
+
+
 block();
 add_filter('login_url', 'add_key_to_url', 101, 2);
 add_filter('logout_url', 'add_key_to_url', 101, 2);
 add_filter('lostpassword_url', 'add_key_to_url', 101, 2);  
 add_filter('register', 'add_key_to_url', 101, 2);
+add_filter( 'style_loader_src', 'remove_ver_scripts', 102, 4 );
+add_filter( 'script_loader_src', 'remove_ver_scripts', 102, 4 ); 
 
 /*
  * Remove Wordpress meta info from header and feeds
