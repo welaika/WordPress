@@ -1,73 +1,75 @@
 <?php
 
-/*
- * Settings
- */
+class WpLaikaHacks {
+  /*
+   * Settings
+   */
 
-function get_values(){
-  $get['key'] = 'access';
-  $get['value'] = 'allow';
-  $get['url'] = get_bloginfo('url') ."/error-404";
-  return $get;
-}
+  function get_values(){
+    $get['key'] = 'access';
+    $get['value'] = 'allow';
+    $get['url'] = get_bloginfo('url') ."/error-404";
+    return $get;
+  }
 
-/**
- * Add key to wp-login url
- * @param mixed $url
- * @param string $redirect
- * @return
- */
+  /**
+   * Add key to wp-login url
+   * @param mixed $url
+   * @param string $redirect
+   * @return
+   */
 
-function add_key_to_url($url, $redirect='0'){
-  $get = get_values();
-  if ($url)
-    return add_query_arg($get['key'], $get['value'], $url);
-}
+  function add_key_to_url($url, $redirect='0'){
+    $get = $this->get_values();
+    if ($url)
+      return add_query_arg($get['key'], $get['value'], $url);
+  }
 
-/**
- * Block access to wp-login.php, wp-admin/
- * only for guest users
- */
+  /**
+   * Block access to wp-login.php, wp-admin/
+   * only for guest users
+   */
 
-function block(){
-  // block works  only for guest users
-  if (!is_user_logged_in()){
-    $get = get_values();
-    if (
-        ($_SERVER['PHP_SELF'] == '/wp-login.php')
-        || ($_SERVER['PHP_SELF'] == '/admin')
-        && (
-          !isset($_GET[$get['key']]) 
-          || ($_GET[$get['key']] != $get['value'])
-        )
-      ){
-      // set 404 header and redirect to home site
-      header("HTTP/1.1 404 File not found");
-      header("location:". $get['url']);
+  function block(){
+    // block works  only for guest users
+    if (!is_user_logged_in()){
+      $get = $this->get_values();
+      echo $get['key'];
+      echo $get['value'];
+      if ((($_SERVER['PHP_SELF'] == '/wp-login.php') || ($_SERVER['PHP_SELF'] == '/admin')) && (!isset($_GET[$get['key']]) || ($_GET[$get['key']] != $get['value']))){
+        echo "qui";
+        // set 404 header and redirect to home site
+        header("HTTP/1.1 404 File not found");
+        header("location:". $get['url']);
+      }
     }
   }
+
+  /**
+   * Remove scripts version (js & css)
+   * @param string $src
+   * @return
+   */
+  function remove_ver_scripts($src){
+    if ( strpos( $src, 'ver=' ) )
+      $src = remove_query_arg( 'ver', $src );
+    return $src;
+  }
+
 }
 
-/**
- * Remove scripts version (js & css)
- * @param string $src
- * @return
+$WpLaikaHacks = new WpLaikaHacks();
+
+/*
+ * Call to actions and filters
  */
-function remove_ver_scripts($src){
-  if ( strpos( $src, 'ver=' ) )
-    $src = remove_query_arg( 'ver', $src );
-  return $src;
-}
 
-
-
-block();
-add_filter('login_url', 'add_key_to_url', 101, 2);
-add_filter('logout_url', 'add_key_to_url', 101, 2);
-add_filter('lostpassword_url', 'add_key_to_url', 101, 2);  
-add_filter('register', 'add_key_to_url', 101, 2);
-add_filter( 'style_loader_src', 'remove_ver_scripts', 102, 4 );
-add_filter( 'script_loader_src', 'remove_ver_scripts', 102, 4 ); 
+add_action('login_head', array($WpLaikaHacks, 'block'));
+add_filter('logout_url', array($WpLaikaHacks, 'add_key_to_url'), 101, 2);
+add_filter('lostpassword_url', array($WpLaikaHacks, 'add_key_to_url'), 101, 2);  
+add_filter('register', array($WpLaikaHacks, 'add_key_to_url'), 101, 2);
+add_filter( 'style_loader_src', array($WpLaikaHacks, 'remove_ver_scripts'), 102, 4 );
+add_filter( 'script_loader_src', array($WpLaikaHacks, 'remove_ver_scripts'), 102, 4 ); 
 
 // remove canonical redirect
 remove_filter('template_redirect', 'redirect_canonical');
