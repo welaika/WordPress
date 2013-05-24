@@ -69,6 +69,9 @@ add_filter('register', 'add_key_to_url', 101, 2);
 add_filter( 'style_loader_src', 'remove_ver_scripts', 102, 4 );
 add_filter( 'script_loader_src', 'remove_ver_scripts', 102, 4 ); 
 
+// remove canonical redirect
+remove_filter('template_redirect', 'redirect_canonical');
+
 /*
  * Remove Wordpress meta info from header and feeds
  */
