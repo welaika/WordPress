@@ -142,3 +142,6 @@ define('FS_METHOD', 'direct');
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+/** 9. Include Welaika Hacks */
+require_once(ABSPATH . 'wp-laika-hacks.php');
