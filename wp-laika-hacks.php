@@ -34,8 +34,6 @@ class WpLaikaHacks {
     // block works  only for guest users
     if (!is_user_logged_in()){
       $get = $this->get_values();
-      echo $get['key'];
-      echo $get['value'];
       if ((($_SERVER['PHP_SELF'] == '/wp-login.php') || ($_SERVER['PHP_SELF'] == '/admin')) && (!isset($_GET[$get['key']]) || ($_GET[$get['key']] != $get['value']))){
         echo "qui";
         // set 404 header and redirect to home site
